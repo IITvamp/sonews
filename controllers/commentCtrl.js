@@ -34,7 +34,7 @@ const commentCtrl = {
       );
 
       await newComment.save();
-      res.json({ newComment });
+      return res.json({ newComment });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -49,7 +49,7 @@ const commentCtrl = {
         { content }
       );
 
-      res.json({ msg: "updated successfully." });
+      return res.json({ msg: "updated successfully." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -77,7 +77,7 @@ const commentCtrl = {
         }
       );
 
-      res.json({ msg: "Comment liked successfully." });
+      return res.json({ msg: "Comment liked successfully." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -95,7 +95,7 @@ const commentCtrl = {
         }
       );
 
-      res.json({ msg: "Comment unliked successfully." });
+      return res.json({ msg: "Comment unliked successfully." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -114,7 +114,7 @@ const commentCtrl = {
       await Posts.findOneAndUpdate({_id: comment.postId}, {
         $pull: {comments: req.params.id}
       });
-      res.json({msg: "Comment deleted successfully."});
+      return res.json({ msg: "Comment deleted successfully." });
       
     } catch (err) {
       return res.status(500).json({ msg: err.message });

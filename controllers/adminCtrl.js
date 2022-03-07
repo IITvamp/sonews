@@ -9,7 +9,7 @@ const adminCtrl = {
     try {
       const users = await Users.find();
       const total_users = users.length;
-      res.json({ total_users });
+      return res.json({ total_users });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -19,7 +19,7 @@ const adminCtrl = {
     try {
       const posts = await Posts.find();
       const total_posts = posts.length;
-      res.json({ total_posts });
+      return res.json({ total_posts });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -29,7 +29,7 @@ const adminCtrl = {
     try {
       const comments = await Comments.find();
       const total_comments = comments.length;
-      res.json({ total_comments });
+      return res.json({ total_comments });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -40,7 +40,7 @@ const adminCtrl = {
       const posts = await Posts.find();
       let total_likes = 0;
       await posts.map((post) => (total_likes += post.likes.length));
-      res.json({ total_likes });
+      return res.json({ total_likes });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -52,7 +52,7 @@ const adminCtrl = {
       
       const reportedPosts = await posts.filter(post => post.reports.length>2);
       const total_spam_posts = reportedPosts.length;
-      res.json({ total_spam_posts });
+      return res.json({ total_spam_posts });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -65,7 +65,7 @@ const adminCtrl = {
         .populate({ path: "user", select: "username avatar email" });
       const spamPosts = posts.filter((post) => post.reports.length > 1);
       
-      res.json({ spamPosts });
+      return res.json({ spamPosts });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -79,7 +79,7 @@ const adminCtrl = {
 
       await Comments.deleteMany({ _id: { $in: post.comments } });
 
-      res.json({ msg: "Post deleted successfully." });
+      return res.json({ msg: "Post deleted successfully." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

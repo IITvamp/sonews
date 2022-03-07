@@ -54,7 +54,7 @@ const ananomMessageCtrl = {
 
     //   await newMessage.save();
 
-      res.json({ msg: "Saved." });
+      return res.json({ msg: "Saved." });
     } catch (err) {
       console.log(err);
       return res.status(500).json({ msg: err.message });
@@ -75,7 +75,7 @@ const ananomMessageCtrl = {
         .sort("-createdAt")
         // .populate("owner", "avatar username fullname");
       // console.log(ananomconversations);
-      res.json({
+      return res.json({
         ananomconversations,
         result: ananomconversations.length,
       });

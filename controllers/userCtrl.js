@@ -9,7 +9,7 @@ const userCtrl = {
         .limit(10)
         .select("fullname username avatar");
 
-      res.json({ users });
+      return res.json({ users });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -25,7 +25,7 @@ const userCtrl = {
         return res.status(400).json({ msg: "requested user does not exist." });
       }
 
-      res.json({ user });
+      return res.json({ user });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -51,7 +51,7 @@ const userCtrl = {
         { avatar, fullname, mobile, address, story, website, gender }
       );
 
-      res.json({ msg: "Profile updated successfully." });
+      return res.json({ msg: "Profile updated successfully." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -86,7 +86,7 @@ const userCtrl = {
         { new: true }
       );
 
-      res.json({ newUser });
+      return res.json({ newUser });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -110,7 +110,7 @@ const userCtrl = {
         { new: true }
       );
 
-      res.json({ newUser });
+      return res.json({ newUser });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

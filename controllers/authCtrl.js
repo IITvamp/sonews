@@ -46,7 +46,7 @@ const authCtrl = {
         maxAge: 30 * 24 * 60 * 60 * 1000, //validity of 30 days
       });
 
-      res.json({
+      return res.json({
         msg: "Registered Successfully!",
         access_token,
         user: {
@@ -57,7 +57,7 @@ const authCtrl = {
 
       await newUser.save();
 
-      res.json({ msg: "registered" });
+      return res.json({ msg: "registered" });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -84,7 +84,7 @@ const authCtrl = {
       
       await Users.findOneAndUpdate({_id: req.user._id}, {password: newPasswordHash });
 
-      res.json({msg: "Password updated successfully."})
+      return res.json({ msg: "Password updated successfully." });
 
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -131,7 +131,7 @@ const authCtrl = {
 
       await newUser.save();
 
-      res.json({ msg: "Admin Registered Successfully." });
+      return res.json({ msg: "Admin Registered Successfully." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -166,7 +166,7 @@ const authCtrl = {
         maxAge: 30 * 24 * 60 * 60 * 1000, //validity of 30 days
       });
 
-      res.json({
+      return res.json({
         msg: "Logged in  Successfully!",
         access_token,
         user: {
@@ -203,7 +203,7 @@ const authCtrl = {
         maxAge: 30 * 24 * 60 * 60 * 1000, //validity of 30 days
       });
 
-      res.json({
+      return res.json({
         msg: "Logged in  Successfully!",
         access_token,
         user: {
@@ -250,7 +250,7 @@ const authCtrl = {
           }
 
           const access_token = createAccessToken({ id: result.id });
-          res.json({ access_token, user });
+          return res.json({ access_token, user });
         }
       );
     } catch (err) {

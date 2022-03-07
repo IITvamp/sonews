@@ -33,7 +33,7 @@ const postCtrl = {
       });
       await newPost.save();
 
-      res.json({
+      return res.json({
         msg: "Post created successfully.",
         newPost: {
           ...newPost._doc,
@@ -65,7 +65,7 @@ const postCtrl = {
           },
         });
 
-      res.json({
+      return res.json({
         msg: "Success",
         result: posts.length,
         posts,
@@ -96,7 +96,7 @@ const postCtrl = {
           },
         });
 
-      res.json({
+      return res.json({
         msg: "Post updated successfully.",
         newPost: {
           ...post._doc,
@@ -136,7 +136,7 @@ const postCtrl = {
         return res.status(400).json({ msg: "Post does not exist." });
       }
 
-      res.json({ msg: "Post liked successfully." });
+      return res.json({ msg: "Post liked successfully." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -158,7 +158,7 @@ const postCtrl = {
         return res.status(400).json({ msg: "Post does not exist." });
       }
 
-      res.json({ msg: "Post unliked successfully." });
+      return res.json({ msg: "Post unliked successfully." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -191,7 +191,7 @@ const postCtrl = {
         return res.status(400).json({ msg: "Post does not exist." });
       }
 
-      res.json({ msg: "Post liked successfully." });
+      return res.json({ msg: "Post liked successfully." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -213,7 +213,7 @@ const postCtrl = {
         return res.status(400).json({ msg: "Post does not exist." });
       }
 
-      res.json({ msg: "Post unDisliked successfully." });
+      return res.json({ msg: "Post unDisliked successfully." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -227,7 +227,7 @@ const postCtrl = {
       ).paginating();
       const posts = await features.query.sort("-createdAt");
 
-      res.json({
+      return res.json({
         posts,
         result: posts.length,
       });
@@ -260,7 +260,7 @@ const postCtrl = {
           },
         });
       // console.log(posts);
-      res.json({
+      return res.json({
         msg: "Success",
         result: posts.length,
         posts,
@@ -285,7 +285,7 @@ const postCtrl = {
         .sort("-createdAt")
         .populate("user likes", "avatar username fullname followers")
         .populate("user dislikes", "avatar username fullname followers");
-      res.json({
+      return res.json({
         msg: "Success",
         result: posts.length,
         posts,
@@ -312,7 +312,7 @@ const postCtrl = {
         return res.status(400).json({ msg: "Post does not exist." });
       }
 
-      res.json({ post });
+      return res.json({ post });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -329,7 +329,7 @@ const postCtrl = {
         { $sample: { size: Number(num) } },
       ]);
 
-      res.json({
+      return res.json({
         msg: "Success",
         result: posts.length,
         posts,
@@ -348,7 +348,7 @@ const postCtrl = {
 
       await Comments.deleteMany({ _id: { $in: post.comments } });
 
-      res.json({
+      return res.json({
         msg: "Post deleted successfully.",
         newPost: {
           ...post,
@@ -386,7 +386,7 @@ const postCtrl = {
         return res.status(400).json({ msg: "Post does not exist." });
       }
 
-      res.json({ msg: "Post reported successfully." });
+      return res.json({ msg: "Post reported successfully." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -418,7 +418,7 @@ const postCtrl = {
         return res.status(400).json({ msg: "User does not exist." });
       }
 
-      res.json({ msg: "Post saved successfully." });
+      return res.json({ msg: "Post saved successfully." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -440,7 +440,7 @@ const postCtrl = {
         return res.status(400).json({ msg: "User does not exist." });
       }
 
-      res.json({ msg: "Post removed from collection successfully." });
+      return res.json({ msg: "Post removed from collection successfully." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -455,7 +455,7 @@ const postCtrl = {
 
       const savePosts = await features.query.sort("-createdAt");
 
-      res.json({
+      return res.json({
         savePosts,
         result: savePosts.length,
       });

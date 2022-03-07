@@ -49,7 +49,7 @@ const messageCtrl = {
 
       await newMessage.save();
 
-      res.json({ msg: "Created." });
+      return res.json({ msg: "Created." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -68,7 +68,7 @@ const messageCtrl = {
         .sort("-updatedAt")
         .populate("recipients", "avatar username fullname");
 
-      res.json({
+      return res.json({
         conversations,
         result: conversations.length,
       });
@@ -92,7 +92,7 @@ const messageCtrl = {
       const messages = await features.query
         .sort("-createdAt");
 
-      res.json({
+      return res.json({
         messages,
         result: messages.length,
       });
