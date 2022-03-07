@@ -67,6 +67,7 @@ export const createPost =
   };
 
 export const getPosts = (token) => async (dispatch) => {
+  console.log(token)
   try {
     dispatch({ type: POST_TYPES.LOADING_POST, payload: true });
     const res = await getDataAPI("posts", token);
