@@ -65,6 +65,7 @@ const postCtrl = {
           },
         });
 
+      console.log(posts)
       return res.json({
         msg: "Success",
         result: posts.length,

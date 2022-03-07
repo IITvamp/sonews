@@ -2,10 +2,12 @@ import axios from 'axios';
 import { SERVER_URL } from './config';
 
 // axios.defaults.withCredentials = true;
-export const getDataAPI = async (url,token) => {
+export const getDataAPI = async (url, token) => {
+  console.log(`${SERVER_URL}/api/${url}`)
     const res = await axios.get(`${SERVER_URL}/api/${url}`,{
         headers: { Authorization: token}
     });
+  console.log(res)
     return res;
 }
 
