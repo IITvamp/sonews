@@ -20,7 +20,7 @@ const Posts = () => {
   };
   return (
     <div className="posts">
-      {homePosts.posts.map((post) => (
+      {homePosts.posts && homePosts.posts.map((post) => (
         <PostCard key={post._id} post={post} theme={theme} />
       ))}
 
