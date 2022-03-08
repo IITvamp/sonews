@@ -18,7 +18,7 @@ const SocketServer = (socket) => {
     connectedTo: -1,
     isTyping: false,
   };
-  
+
   //#region //!Connection
   socket.on("joinUser", (id) => {
     users.push({ id, socketId: socket.id });
@@ -83,7 +83,7 @@ const SocketServer = (socket) => {
 
   //#region //!comment
   socket.on("createComment", (newPost) => {
-    console.log(socket.id, "createcomment")
+    console.log(socket.id, "createcomment");
     let ids = [...newPost.user.followers, newPost.user._id];
     const clients = users.filter((user) => ids.includes(user.id));
     if (clients.length > 0) {
@@ -114,6 +114,24 @@ const SocketServer = (socket) => {
   socket.on("unFollow", (newUser) => {
     const user = users.find((user) => user.id === newUser._id);
     user && socket.to(`${user.socketId}`).emit("unFollowToClient", newUser);
+  });
+  //#endregion
+
+  //#region //!match
+
+  socket.on("requestmatch", (newUser) => {
+    const user = users.find((user) => user.id === newUser._id);
+    user && socket.to(`${user.socketId}`).emit("requestmatch", newUser);
+  });
+
+  socket.on("makematch", (newUser) => {
+    const user = users.find((user) => user.id === newUser._id);
+    user && socket.to(`${user.socketId}`).emit("makeMatch", newUser);
+  });
+
+  socket.on("removematch", (newUser) => {
+    const user = users.find((user) => user.id === newUser._id);
+    user && socket.to(`${user.socketId}`).emit("removeMatch", newUser);
   });
   //#endregion
 
@@ -151,7 +169,7 @@ const SocketServer = (socket) => {
   //#region //!Messages
 
   socket.on("addMessage", (msg) => {
-    const user = users.find(user => user.id === msg.recipient);
+    const user = users.find((user) => user.id === msg.recipient);
     user && socket.to(`${user.socketId}`).emit("addMessageToClient", msg);
   });
 
@@ -160,17 +178,17 @@ const SocketServer = (socket) => {
   // for ananomous connection
 
   // Got data from someone
-  socket.on("new", function(sex, googleId) {
-    console.log("i am here")
+  socket.on("new", function (sex, googleId) {
+    console.log("i am here");
     console.log(googleId);
     console.log(sex);
     if (sex === "BOY") {
-      if (girlStrangerQueue.length>0) {
+      if (girlStrangerQueue.length > 0) {
         ananomUsers[socket.id].connectedTo = girlStrangerQueue[0];
         console.log(ananomUsers[socket.id].connectedTo, "jbdjbfjdbjfkdj");
         ananomUsers[girlStrangerQueue[0].socketId].connectedTo = {
           socketId: socket.id,
-          googleId:googleId,
+          googleId: googleId,
         };
         ananomUsers[socket.id].isTyping = false;
         ananomUsers[girlStrangerQueue[0].socketId].isTyping = false;
@@ -193,7 +211,7 @@ const SocketServer = (socket) => {
           code: 1,
           text: "You are now chatting with a Stranger!",
         });
-        girlStrangerQueue.splice(0,1);
+        girlStrangerQueue.splice(0, 1);
       } else {
         boyStrangerQueue.push({
           socketId: socket.id,
@@ -217,7 +235,7 @@ const SocketServer = (socket) => {
         ananomUsers[boyStrangerQueue[0].socketId].isTyping = false;
         socket.emit("conn", {
           id: ananomUsers[socket.id].connectedTo.socketId,
-          ownId:socket.id,
+          ownId: socket.id,
           googleId: ananomUsers[socket.id].connectedTo.googleId,
         });
         sockets[boyStrangerQueue[0].socketId].emit("conn", {
@@ -263,34 +281,34 @@ const SocketServer = (socket) => {
     }
   });
 
-socket.on("sendAnanomMessage", (message) => {
-  if (
-    ananomUsers[socket.id].connectedTo !== -1 &&
-    sockets[ananomUsers[socket.id].connectedTo.socketId]
-  ) {
-    const user = getAnanomUser(message.receieverSocketID);
-    sockets[ananomUsers[socket.id].connectedTo.socketId].emit(
-      "getAnanomMessage",
-      message
-    );
-    // sockets[socket.id].emit("getAnanomMessage", message);
+  socket.on("sendAnanomMessage", (message) => {
+    if (
+      ananomUsers[socket.id].connectedTo !== -1 &&
+      sockets[ananomUsers[socket.id].connectedTo.socketId]
+    ) {
+      const user = getAnanomUser(message.receieverSocketID);
+      sockets[ananomUsers[socket.id].connectedTo.socketId].emit(
+        "getAnanomMessage",
+        message
+      );
+      // sockets[socket.id].emit("getAnanomMessage", message);
 
-    // console.log(message.receieverSocketID, "anananan");
-    console.log(message);
-    // console.log(user);
-    // sockets[user.socketId].emit("getAnanomMessage", message);
-  }
-});
+      // console.log(message.receieverSocketID, "anananan");
+      console.log(message);
+      // console.log(user);
+      // sockets[user.socketId].emit("getAnanomMessage", message);
+    }
+  });
 
   socket.on("disconn", function () {
     var connTo = ananomUsers[socket.id].connectedTo;
     let index = 0;
-    boyStrangerQueue.map(boy => {
+    boyStrangerQueue.map((boy) => {
       if (boy.socketId === socket.id || boy.socketId === connTo.socketId) {
-        boyStrangerQueue.splice(index, 1)
+        boyStrangerQueue.splice(index, 1);
       }
       index++;
-    })
+    });
     let girlIndex = 0;
     girlStrangerQueue.map((girl) => {
       if (girl.socketId === socket.id || girl.socketId === connTo.socketId) {
@@ -298,7 +316,7 @@ socket.on("sendAnanomMessage", (message) => {
       }
       girlIndex++;
     });
-    
+
     ananomUsers[socket.id].connectedTo = -1;
     ananomUsers[socket.id].isTyping = false;
     if (sockets[connTo.socketId]) {
@@ -320,7 +338,7 @@ socket.on("sendAnanomMessage", (message) => {
   });
 
   socket.on("disconnect", (err) => {
-    console.log("User has disconnected"+socket.id);
+    console.log("User has disconnected" + socket.id);
 
     var connTo = ananomUsers[socket.id] && ananomUsers[socket.id].connectedTo;
     if (connTo === undefined) {
@@ -363,7 +381,6 @@ socket.on("sendAnanomMessage", (message) => {
       index++;
     });
   });
-
 }
 
 

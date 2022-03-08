@@ -84,8 +84,8 @@ const AnanomLeftSide = () => {
       <form className="message_header">
         <input
           type="text"
-        //   value={search}
-        //   onChange={(e) => setSearch(e.target.value)}
+          //   value={search}
+          //   onChange={(e) => setSearch(e.target.value)}
           placeholder="search..."
         />
 
@@ -96,8 +96,8 @@ const AnanomLeftSide = () => {
 
       <div className="message_chat_list">
         {/* {searchUsers.length !== 0 ? ( */}
-          <>
-            {/* {searchUsers.map((user) => (
+        <>
+          {/* {searchUsers.map((user) => (
               <div
                 key={user._id}
                 className={`message_user ${isActive(user)}`}
@@ -106,21 +106,22 @@ const AnanomLeftSide = () => {
                 <UserCard user={user} />
               </div>
             ))} */}
-          </>
+        </>
         {/* ) : ( */}
-          <>
-            {ananomMessages.conversation.map((user) => (
-              <div
-                key={user.id}
-                // cclassName={`message_user ${isActive(user)}`}
-                onClick={() => handleAddUser(user)}
-              >
-                <AnanomMessageCard>
-                  <i className="fas fa-circle" />
-                </AnanomMessageCard>
-              </div>
-            ))}
-          </>
+        <>
+          {console.log(ananomMessages.conversation)}
+          {ananomMessages.conversation.map((user) => (
+            <div
+              key={user.id}
+              // cclassName={`message_user ${isActive(user)}`}
+              onClick={() => handleAddUser(user)}
+            >
+              <AnanomMessageCard conversation={user}>
+                <i className="fas fa-circle" />
+              </AnanomMessageCard>
+            </div>
+          ))}
+        </>
         {/* )} */}
 
         <button style={{ opacity: 0 }} ref={pageEnd}>

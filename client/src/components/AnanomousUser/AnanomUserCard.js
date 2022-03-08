@@ -1,21 +1,21 @@
 import React, {useState} from "react";
 import Avatar from "../Avatar";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@material-ui/core";
 
 import FindButton from "./FindButton";
 import CommonLikedPosts from "./CommonLikedPosts";
+import { createRequest } from "../../redux/actions/matchRequestAction";
 
 
 const AnanomUserCard = (props) => {
-  const { theme } = useSelector(state => state);
-    const [onEdit, setOnEdit] = useState(false);
-//   const handleCloseAll = () => {
-//     if (handleClose) handleClose();
-//     if (setShowFollowers) setShowFollowers(false);
-//     if (setShowFollowing) setShowFollowing(false);
-//   };
+  const { theme, auth, socket } = useSelector(state => state);
+  const [onEdit, setOnEdit] = useState(false);
+  const dispatch = useDispatch();
+  const onMatchHandler = () => {
+    dispatch(createRequest({sender:auth.user._id, receiver:props.receiver, auth, socket,user:auth.user}))
+  }
   return (
     <div
       className={`d-flex justify-content-between p-2 w-100 align-items-center`}
@@ -50,7 +50,7 @@ const AnanomUserCard = (props) => {
       >
         Common Interests
       </button>
-      <Button>Friend Request</Button>
+      {/* <Button onClick={onMatchHandler}>Match Request</Button> */}
       <FindButton
         find={props.find}
         setFind={props.setFind}

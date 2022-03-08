@@ -6,27 +6,33 @@ const SavedAnanomConversationSchema = new Schema(
     owner: { type: mongoose.Types.ObjectId, ref: "user" },
     text: {
       type: String,
-      default:"",
+      default: "",
     },
     media: {
       type: Array,
-      default:[],
+      default: [],
     },
     messages: [
-      Schema(
-        {
-          sender: { type: mongoose.Types.ObjectId, ref: "user" },
-          receiverId: { type: mongoose.Types.ObjectId, ref: "user" },
-          text: String,
-          media: Array,
-          createdAt:String,
-        },
-      ),
+      Schema({
+        sender: { type: mongoose.Types.ObjectId, ref: "user" },
+        receiverId: { type: mongoose.Types.ObjectId, ref: "user" },
+        text: String,
+        media: Array,
+        createdAt: String,
+      }),
     ],
+    matchRequest: {
+      type: mongoose.Types.ObjectId,
+      ref: "user",
+      default:null,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model("savedAnanomconversation", SavedAnanomConversationSchema);
+module.exports = mongoose.model(
+  "savedAnanomconversation",
+  SavedAnanomConversationSchema
+);

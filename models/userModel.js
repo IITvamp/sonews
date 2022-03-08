@@ -78,6 +78,18 @@ const userSchema = new Schema(
         ref: "user",
       },
     ],
+    matches: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "user",
+      },
+    ],
+    matchRequests: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "user",
+      },
+    ],
     interests: [String],
   },
   {

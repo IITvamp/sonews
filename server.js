@@ -41,6 +41,8 @@ app.use('/api', require('./routes/adminRouter'));
 app.use('/api', require('./routes/notifyRouter'));
 app.use('/api', require('./routes/messageRouter'));
 app.use("/api", require("./routes/ananomMessageRouter"));
+app.use("/api", require("./routes/matchRequestRouter"));
+
 
 //#endregion
 

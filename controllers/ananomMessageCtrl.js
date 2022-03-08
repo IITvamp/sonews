@@ -73,7 +73,7 @@ const ananomMessageCtrl = {
 
       const ananomconversations = await features.query
         .sort("-createdAt")
-        // .populate("owner", "avatar username fullname");
+        .populate("matchRequest");
       // console.log(ananomconversations);
       return res.json({
         ananomconversations,

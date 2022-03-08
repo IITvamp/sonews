@@ -16,6 +16,7 @@ import socket from "./socketReducer";
 import notify from "./notifyReducer";
 import message from "./messageReducer";
 import ananomMessages from "./ananomMessageReducer"
+import requests from "./matchRequestReducer";
 
 export default combineReducers({
   auth,
@@ -34,4 +35,5 @@ export default combineReducers({
   notify,
   message,
   ananomMessages,
+  requests,
 });
