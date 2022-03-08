@@ -100,6 +100,28 @@ const MatchRequestCtrl = {
     }
   },
 
+  getMatchRequestByUserIDs: async (req, res) => {
+    const { sender, receiver } = req.query;
+    try {
+      const matchRequest = await MatchRequest.findOne({
+        sender: receiver,
+        receiver: sender,
+      });
+      if (matchRequest) {
+        return res.json({
+          matchRequest,
+        });
+      }
+      return res
+        .status(500)
+        .json({ msg: "This connection Request does not exist anymore." });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+
+  
+
   getMatchRequestById: async (req, res) => {
     console.log(req.user);
     try {
@@ -166,8 +188,7 @@ const MatchRequestCtrl = {
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
-    },
-  
+  },
 };
 
 module.exports = MatchRequestCtrl;

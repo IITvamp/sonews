@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Avatar from "../Avatar";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,12 +7,50 @@ import { Button } from "@material-ui/core";
 import FindButton from "./FindButton";
 import CommonLikedPosts from "./CommonLikedPosts";
 import { createRequest } from "../../redux/actions/matchRequestAction";
+import { getDataAPI } from "../../utils/fetchData";
 
 
 const AnanomUserCard = (props) => {
   const { theme, auth, socket } = useSelector(state => state);
   const [onEdit, setOnEdit] = useState(false);
+  const [match, setMatch] = useState(false);
+  const [received, setReceived] = useState(false);
+  const [sent, setSent] = useState(false);
   const dispatch = useDispatch();
+  const {ananomId} = props
+  useEffect(() => {
+    const isRequested = async () => {
+      try {
+        auth.user.matches.forEach((item) => {
+          if (item === ananomId) {
+            setMatch(true);
+          }
+        });
+        if (!match) {
+          const res = await getDataAPI(
+            `/request?sender=${auth.user._id}&&receiver=${ananomId}`
+          );
+          console.log(res);
+          if (res.data) {
+            setSent(true);
+          } else {
+            const res = await getDataAPI(
+              `/request?sender=${ananomId}&&receiver=${auth.user._id}`
+            );
+            console.log(res);
+            if (res.data) {
+              setReceived(true);
+            }
+          }
+        }
+      }
+      catch (error) {
+        console.log(error)
+      }
+    };
+    isRequested();
+  }, []);
+
   const onMatchHandler = () => {
     dispatch(createRequest({sender:auth.user._id, receiver:props.receiver, auth, socket,user:auth.user}))
   }
@@ -37,10 +75,6 @@ const AnanomUserCard = (props) => {
           </div>
           <div className="ms-2" style={{ transform: "translateY(-2px)" }}>
             <span className="d-block color-c2">{"Ananomous User"}</span>
-
-            {/* <small className="d-flex text-muted" style={{ flexWrap: "wrap" }}>
-              Connect with someone you goona love
-            </small> */}
           </div>
         </div>
       </Link>
@@ -50,7 +84,15 @@ const AnanomUserCard = (props) => {
       >
         Common Interests
       </button>
-      {/* <Button onClick={onMatchHandler}>Match Request</Button> */}
+      {match && <Button>Match already</Button>}
+      {!match && received && !sent && (
+        <Button onClick={onMatchHandler}>Accept Request</Button>
+      )}
+      {!match && !received && sent && <Button>Pending...</Button>}
+
+      {!match && !received && !sent && (
+        <Button onClick={onMatchHandler}>Match Request</Button>
+      )}
       <FindButton
         find={props.find}
         setFind={props.setFind}
@@ -60,7 +102,9 @@ const AnanomUserCard = (props) => {
         setBcode={props.setBcode}
       />
 
-      {onEdit && <CommonLikedPosts setOnEdit={setOnEdit} receiver={props.receiver} />}
+      {onEdit && (
+        <CommonLikedPosts setOnEdit={setOnEdit} receiver={props.receiver} />
+      )}
     </div>
   );
 };

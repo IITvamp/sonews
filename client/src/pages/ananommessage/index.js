@@ -14,7 +14,7 @@ import {
 } from "../../redux/actions/saveConversation";
 
 
-import EndChatModel from "../../components/AnanomousUser/EndChatModel";
+// import EndChatModel from "../../components/AnanomousUser/EndChatModel";
 
 const useStyle = makeStyles((theme) => ({
   component: {
@@ -181,6 +181,7 @@ const Ananommessage = () => {
 
   useEffect(() => {
     if (find === true) {
+      console.log("trying to find")
       socket.emit("new", auth.user.gender, auth.user._id);
       setFind(false);
     }

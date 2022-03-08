@@ -89,11 +89,11 @@ const AnanomMessageCard = (props) => {
           <div className="ms-2" style={{ transform: "translateY(-2px)" }}>
             <span className="d-block color-c2">{"Ananomous User"}</span>
           </div>
-          {match && (
+          {/* {match && (
             <div className="ms-2" style={{ transform: "translateY(-2px)" }}>
               <span>Match</span>
             </div>
-          )}
+          )} */}
           {sent && (
             <div className="ms-2" style={{ transform: "translateY(-2px)" }}>
               <span>Pending</span>

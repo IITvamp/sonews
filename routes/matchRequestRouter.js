@@ -14,6 +14,8 @@ router.get(
 
 router.get("/request/:id", auth, matchRequestCtrl.getMatchRequestById);
 
+router.get("/request", auth, matchRequestCtrl.getMatchRequestByUserIDs);
+
 router.post("/acceptrequest", auth, matchRequestCtrl.AcceptMatchRequest);
 
 router.post("/rejectrequest", auth, matchRequestCtrl.RejectMatchRequest);
