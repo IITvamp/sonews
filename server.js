@@ -5,7 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const SocketServer = require('./socketServer');
 const corsOptions = {
-  Credential: 'true',
+  Credential: "true",
 };
 
 
@@ -21,15 +21,13 @@ app.use(cookieParser())
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-
-
 io.on('connection', socket => {
+  console.log("socket connected")
     SocketServer(socket);
 })
 
 //#endregion
 
-//production build
 
 
 //#region // !Routes
@@ -41,12 +39,14 @@ app.use('/api', require('./routes/adminRouter'));
 app.use('/api', require('./routes/notifyRouter'));
 app.use('/api', require('./routes/messageRouter'));
 app.use("/api", require("./routes/ananomMessageRouter"));
-app.use("/api", require("./routes/matchRequestRouter"));
 
 
 //#endregion
 
+//production build
+
 if ((process.env.NODE_ENV = "production")) {
+  console.log("under production")
   app.use(express.static("client/build"));
 
   const path = require("path");

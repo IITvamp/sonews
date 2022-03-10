@@ -21,7 +21,7 @@ const ananomMessageCtrl = {
   createConversation: async (req, res) => {
     try {
       const { messages } = req.body;
-      console.log(messages, "here");
+      // console.log(messages, "here");
       if (messages.length === 0) return;
 
     //   const newConversation = await Conversations.findOneAndUpdate(
@@ -43,7 +43,7 @@ const ananomMessageCtrl = {
             owner: req.user._id,
             messages,
         }).save();
-      console.log(newConversation)
+      // console.log(newConversation)
     //   const newMessage = new Messages({
     //     conversation: newConversation._id,
     //     sender: req.user._id,
@@ -56,13 +56,13 @@ const ananomMessageCtrl = {
 
       return res.json({ msg: "Saved." });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       return res.status(500).json({ msg: err.message });
     }
   },
 
   getConversations: async (req, res) => {
-    console.log(req.user)
+    // console.log(req.user)
     try {
       const features = new APIfeatures(
         savedAnanomConversation.find({

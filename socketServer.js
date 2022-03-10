@@ -9,10 +9,12 @@ var sockets = {},
   const getAnanomUser = (socketId) => {
     console.log(users);
     return users.find((user) => user.socketId === socketId);
-  };
+}; 
+
+console.log("jshkjdsfh")
 
 const SocketServer = (socket) => {
-  // console.log(socket.id)
+  console.log(socket.id)
   sockets[socket.id] = socket;
   ananomUsers[socket.id] = {
     connectedTo: -1,
@@ -169,6 +171,7 @@ const SocketServer = (socket) => {
   //#region //!Messages
 
   socket.on("addMessage", (msg) => {
+    console.log(msg)
     const user = users.find((user) => user.id === msg.recipient);
     user && socket.to(`${user.socketId}`).emit("addMessageToClient", msg);
   });

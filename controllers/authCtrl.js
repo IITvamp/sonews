@@ -46,6 +46,7 @@ const authCtrl = {
         maxAge: 30 * 24 * 60 * 60 * 1000, //validity of 30 days
       });
 
+      await newUser.save();
       return res.json({
         msg: "Registered Successfully!",
         access_token,
@@ -55,9 +56,8 @@ const authCtrl = {
         },
       });
 
-      await newUser.save();
 
-      return res.json({ msg: "registered" });
+      // return res.json({ msg: "registered" });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -227,9 +227,9 @@ const authCtrl = {
 
   generateAccessToken: async (req, res) => {
     try {
-      console.log(req.cookies);
+      // console.log(req.cookies);
       const rf_token = req.cookies.refreshtoken;
-      console.log(rf_token);
+      // console.log(rf_token);
       if (!rf_token) {
         return res.status(400).json({ msg: "Please login again." });
       }

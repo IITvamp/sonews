@@ -65,7 +65,7 @@ const postCtrl = {
           },
         });
 
-      console.log(posts)
+      // console.log(posts)
       return res.json({
         msg: "Success",
         result: posts.length,
@@ -239,7 +239,7 @@ const postCtrl = {
 
   getCommonLikedPosts: async (req, res) => {
     try {
-      console.log(req.query, req.user._id);
+      // console.log(req.query, req.user._id);
       const user2 = req.query.receiver;
       const features = new APIfeatures(
         Posts.find({
