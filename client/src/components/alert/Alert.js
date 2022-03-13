@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 import Loading from "./Loading";
-import Toast from "./Toast";
+import Toast from "../Toast";
 import { GLOBALTYPES } from "../../redux/actions/globalTypes";
 
 const Alert = () => {
@@ -12,9 +13,12 @@ const Alert = () => {
       {alert.loading && <Loading />}
 
       {alert.error && (
+        // toast(alert.error)
         <Toast
           msg={{ title: "Error", body: alert.error }}
-          handleShow={() => dispatch({ type: GLOBALTYPES.ALERT, payload: {} })}
+          handleShow={() => {
+            dispatch({ type: GLOBALTYPES.ALERT, payload: {} })
+          }}
           bgColor="bg-danger"
         />
       )}

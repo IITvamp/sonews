@@ -17,10 +17,12 @@ const userCtrl = {
 
   getUser: async (req, res) => {
     try {
+      console.log(req.params.id);
       const user = await Users.findById(req.params.id)
         .select("-password")
         .populate("followers following", "-password");
 
+      console.log(user)
       if (!user) {
         return res.status(400).json({ msg: "requested user does not exist." });
       }

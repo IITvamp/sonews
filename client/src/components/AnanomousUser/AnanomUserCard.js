@@ -1,4 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+
 import Avatar from "../Avatar";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,18 +8,83 @@ import { Button } from "@material-ui/core";
 
 import FindButton from "./FindButton";
 import CommonLikedPosts from "./CommonLikedPosts";
-import { createRequest } from "../../redux/actions/matchRequestAction";
+import UserCard from "../UserCard";
+import {
+  createRequest,
+  acceptMatchRequest,
+} from "../../redux/actions/matchRequestAction";
+
+import { getProfileUsers, follow } from "../../redux/actions/profileAction";
 import { getDataAPI } from "../../utils/fetchData";
 
-
 const AnanomUserCard = (props) => {
-  const { theme, auth, socket } = useSelector(state => state);
+  const { theme, auth, socket, profile } = useSelector((state) => state);
+  const [userData, setUserData] = useState([]);
   const [onEdit, setOnEdit] = useState(false);
   const [match, setMatch] = useState(false);
   const [received, setReceived] = useState(false);
   const [sent, setSent] = useState(false);
+  const [user, setUser] = useState({});
   const dispatch = useDispatch();
-  const {ananomId} = props
+  const { ananomId } = props;
+  console.log(ananomId);
+
+  const RequestMatchNotif = () => (
+    <div>
+      The user you are talking to has sent you connection request.
+      <Button onClick={AcceptHandler}>Accept Request</Button>{" "}
+    </div>
+  );
+
+  const AcceptMatchNotif = ({ user }) => (
+    <div>
+      Whooray, we have a new match
+      <UserCard user={user}>
+        <i className="fas fa-circle" />
+      </UserCard>
+    </div>
+  );
+
+  socket.on("requestmatchToClient", (data) => {
+    console.log(data);
+    setReceived(true);
+    toast(<RequestMatchNotif />, {
+      theme: "colored",
+      autoClose: 10000,
+    });
+  });
+
+  socket.on("makeMatchToClient", async (data) => {
+    console.log(data);
+    setMatch(true);
+    if (!user._id) {
+      const res = await getDataAPI(`user/${ananomId}`, auth.token);
+      const user = res.data.user;
+      setUser(user);
+      console.log(res);
+      toast.success(<AcceptMatchNotif user={user} />, {
+        theme: "colored",
+        autoClose: 10000,
+      });
+    }
+  });
+
+  socket.on("rejectMatchToClient", (data) => {
+    console.log(data);
+    setSent(false);
+  });
+
+  useEffect(() => {
+    if (props.receiver === auth.user._id) {
+      setUserData([auth.user]);
+    } else {
+      const newData = profile.users.filter(
+        (user) => user._id === props.receiver
+      );
+      setUserData(newData);
+    }
+  }, [props.receiver, auth, dispatch, profile.users]);
+
   useEffect(() => {
     const isRequested = async () => {
       try {
@@ -26,34 +93,42 @@ const AnanomUserCard = (props) => {
             setMatch(true);
           }
         });
-        if (!match) {
-          const res = await getDataAPI(
-            `/request?sender=${auth.user._id}&&receiver=${ananomId}`
-          );
-          console.log(res);
-          if (res.data) {
-            setSent(true);
-          } else {
-            const res = await getDataAPI(
-              `/request?sender=${ananomId}&&receiver=${auth.user._id}`
-            );
-            console.log(res);
-            if (res.data) {
-              setReceived(true);
-            }
-          }
-        }
-      }
-      catch (error) {
-        console.log(error)
+      } catch (error) {
+        console.log(error);
       }
     };
     isRequested();
   }, []);
 
   const onMatchHandler = () => {
-    dispatch(createRequest({sender:auth.user._id, receiver:props.receiver, auth, socket,user:auth.user}))
-  }
+    dispatch(
+      createRequest({
+        sender: auth.user._id,
+        receiver: props.receiver,
+        auth,
+        socket,
+        user: auth.user,
+      })
+    );
+    setSent(true);
+  };
+
+  const AcceptHandler = async () => {
+    await dispatch(
+      acceptMatchRequest({
+        auth,
+        socket,
+        sender: props.receiver,
+        receiver: auth.user._id,
+      })
+    );
+    setMatch(true);
+    await dispatch(getProfileUsers({ id: props.receiver, auth }));
+    await dispatch(
+      follow({ users: profile.users, user: userData[0], auth, socket })
+    );
+  };
+
   return (
     <div
       className={`d-flex justify-content-between p-2 w-100 align-items-center`}
@@ -86,7 +161,7 @@ const AnanomUserCard = (props) => {
       </button>
       {match && <Button>Match already</Button>}
       {!match && received && !sent && (
-        <Button onClick={onMatchHandler}>Accept Request</Button>
+        <Button onClick={AcceptHandler}>Accept Request</Button>
       )}
       {!match && !received && sent && <Button>Pending...</Button>}
 
@@ -101,6 +176,8 @@ const AnanomUserCard = (props) => {
         bcode={props.bcode}
         setBcode={props.setBcode}
       />
+
+      <ToastContainer></ToastContainer>
 
       {onEdit && (
         <CommonLikedPosts setOnEdit={setOnEdit} receiver={props.receiver} />

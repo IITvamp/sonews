@@ -5,7 +5,7 @@ import {
   acceptMatchRequest,
   rejectMatchRequest,
 } from "../../../redux/actions/matchRequestAction";
-
+import { getProfileUsers } from "../../../redux/actions/profileAction";
 import Avatar from "../../Avatar";
 import { Link } from "react-router-dom";
 
@@ -60,7 +60,7 @@ const AnanomMessageCard = (props) => {
 
   const AcceptHandler = () => {
     setMatch(true);
-    dispatch(acceptMatchRequest({auth, id:conversation.matchReuest._id}));
+    dispatch(acceptMatchRequest({ auth, id: conversation.matchReuest._id }));
   }
 
   const RejectHandler = () => {

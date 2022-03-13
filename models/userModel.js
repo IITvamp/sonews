@@ -84,12 +84,6 @@ const userSchema = new Schema(
         ref: "user",
       },
     ],
-    matchRequests: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "user",
-      },
-    ],
     interests: [String],
   },
   {

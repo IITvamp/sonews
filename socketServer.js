@@ -26,6 +26,7 @@ const SocketServer = (socket) => {
     users.push({ id, socketId: socket.id });
   });
 
+  
   socket.on("joinAdmin", (id) => {
     admins.push({ id, socketId: socket.id });
     const admin = admins.find((admin) => admin.id === id);
@@ -122,18 +123,25 @@ const SocketServer = (socket) => {
   //#region //!match
 
   socket.on("requestmatch", (newUser) => {
-    const user = users.find((user) => user.id === newUser._id);
-    user && socket.to(`${user.socketId}`).emit("requestmatch", newUser);
+    console.log(newUser, "requestmatch")
+    const user = users.find((user) => user.id === newUser);
+    console.log(user.id, "userId");
+    user && socket.to(`${user.socketId}`).emit("requestmatchToClient", newUser);
   });
 
-  socket.on("makematch", (newUser) => {
-    const user = users.find((user) => user.id === newUser._id);
-    user && socket.to(`${user.socketId}`).emit("makeMatch", newUser);
+  socket.on("makematch", (sender, receiver) => {
+    const user = users.find((user) => user.id === sender);
+    user && socket.to(`${user.socketId}`).emit("makeMatchToClient", sender);
   });
 
   socket.on("removematch", (newUser) => {
     const user = users.find((user) => user.id === newUser._id);
-    user && socket.to(`${user.socketId}`).emit("removeMatch", newUser);
+    user && socket.to(`${user.socketId}`).emit("removeMatchToClient", newUser);
+  });
+
+  socket.on("rejectmatch", (sender, receiver) => {
+    const user = users.find((user) => user.id === sender);
+    user && socket.to(`${user.socketId}`).emit("rejectMatchToClient", sender);
   });
   //#endregion
 

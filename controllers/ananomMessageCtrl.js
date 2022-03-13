@@ -73,7 +73,6 @@ const ananomMessageCtrl = {
 
       const ananomconversations = await features.query
         .sort("-createdAt")
-        .populate("matchRequest");
       // console.log(ananomconversations);
       return res.json({
         ananomconversations,

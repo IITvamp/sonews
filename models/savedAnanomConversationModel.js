@@ -21,11 +21,6 @@ const SavedAnanomConversationSchema = new Schema(
         createdAt: String,
       }),
     ],
-    matchRequest: {
-      type: mongoose.Types.ObjectId,
-      ref: "user",
-      default:null,
-    },
   },
   {
     timestamps: true,

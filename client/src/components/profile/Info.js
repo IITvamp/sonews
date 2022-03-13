@@ -56,15 +56,13 @@ const Info = ({id, auth, profile, dispatch}) => {
                 ) : (
                   <FollowBtn user={user} />
                 )}
-                {user._id === auth.user._id ? (
+                {user._id === auth.user._id && (
                   <button
                     className="btn-1 outer-shadow hover-in-shadow"
                     onClick={() => setChangePassword(true)}
                   >
                     change password
                   </button>
-                ) : (
-                  <FollowBtn user={user} />
                 )}
               </div>
 

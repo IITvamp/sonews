@@ -8,6 +8,7 @@ import PrivateRouter from "./customRouter/PrivateRouter";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Home from "./pages/home";
+// import LoginHome from "./components/Homepage/Home";
 import Alert from "./components/alert/Alert";
 import Header from "./components/header/Header";
 import StatusModal from "./components/StatusModal";
@@ -27,7 +28,8 @@ function App() {
   useEffect(() => {
     dispatch(refreshToken());
 
-    const socket = io();
+    // const socket = io();
+    const socket = io.connect(window.location.hostname+':8080', {transports: ["websocket", "xhr-polling", "htmlfile", "jsonp-polling"]});
     dispatch({type: GLOBALTYPES.SOCKET, payload: socket })
     return () => socket.close()
   }, [dispatch]);
@@ -64,7 +66,7 @@ function App() {
         <div className="main">
           {userType === "user" && auth.token && <Header />}
           {status && <StatusModal />}
-          {auth.token && <SocketClient /> }
+          {auth.token && <SocketClient />}
           <Route
             exact
             path="/"
@@ -72,8 +74,9 @@ function App() {
               userType === "user"
                 ? auth.token
                   ? Home
-                  : Login
-                : auth.token
+                  // : LoginHome
+                : Login
+               : auth.token
                 ? AdminDashboard
                 : Login
             }
@@ -82,6 +85,8 @@ function App() {
           {userType === "user" && (
             <>
               <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+
               <div className="wrap_page">
                 <PrivateRouter exact path="/:page" component={PageRender} />
                 <PrivateRouter exact path="/:page/:id" component={PageRender} />

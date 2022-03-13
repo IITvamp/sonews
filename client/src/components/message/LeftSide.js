@@ -68,6 +68,10 @@ const LeftSide = () => {
          dispatch(getConversations({ auth, page }));
        }
      }, [message.resultUsers, page, auth, dispatch]);
+  
+  useEffect(() => {
+      dispatch(getConversations({ auth, page }));
+  }, [dispatch]);
 
     return (
       <>

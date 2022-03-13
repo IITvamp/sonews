@@ -149,9 +149,11 @@ const AnanomUserChat = (props) => {
   console.log(googleId);
   return (
     <>
+      {console.log("tp check if working")}
       <div className="message_header">
         {/* {user.length !== 0 && ( */}
-        {/* <AnanomUserCard
+        <AnanomUserCard
+          ananomId={googleId}
           find={props.find}
           setFind={props.setFind}
           end={props.end}
@@ -161,7 +163,7 @@ const AnanomUserChat = (props) => {
           receiver={googleId}
         >
           <i className="fas fa-trash text-danger" />
-        </AnanomUserCard> */}
+        </AnanomUserCard>
         {/* )} */}
       </div>
 

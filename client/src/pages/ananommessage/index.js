@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 // import AnanomousChat from "./AnanomousChat";
 import AnanomousUserChat from "../../components/AnanomousUser/AnanomUserChat";
 import FindButton from "../../components/AnanomousUser/FindButton";
-import {  postDataAPI } from "../../utils/fetchData";
+import {  postDataAPI, getDataAPI } from "../../utils/fetchData";
 import {
   getMessages,
   getConversations,
@@ -190,6 +190,15 @@ const Ananommessage = () => {
   useEffect(() => {
     toast(waitMessage);
   }, [waitMessage])
+
+  // useEffect(() => {
+  //   const ananomId = "6209378269425237042ee680";
+  //   const useless = async () => {
+  //     const res = await getDataAPI(`user/${ananomId}`, auth.token);
+  //     console.log(res);
+  //   };
+  //   useless();
+  // }, []);
 
   // useEffect(() => {
   //   // console.log(auth.user.googleId);

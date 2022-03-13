@@ -21,7 +21,7 @@ export const createRequest =
           dispatch({
             type: REQUEST_TYPES.CREATE_REQUEST,
           });
-          socket.emit("requestmatch", sender);
+          socket.emit("requestmatch", receiver);
       } catch (err) {
         dispatch({
           type: GLOBALTYPES.ALERT,
@@ -32,11 +32,11 @@ export const createRequest =
   };
 
 export const getSentMatchRequests =
-  ({ auth, page = 1 }) =>
+  ({ auth}) =>
   async (dispatch) => {
     try {
       const res = await getDataAPI(
-        `sentrequests?limit=${page * 9}`,
+        `sentrequests`,
         auth.token
       );
       let newArr = res.data.matchRequests;
@@ -74,43 +74,40 @@ export const getReceivedMatchRequests =
   };
 
 export const acceptMatchRequest =
-  ({ users, user, auth, socket, id }) =>
+  ({ auth, socket, sender, receiver }) =>
   async (dispatch) => {
-    let newUser;
-    if (users.every((item) => item._id !== user._id)) {
-      newUser = { ...user, matches: [...user.matches, auth.user] };
-    } else {
-      users.forEach((item) => {
-        if (item._id === user._id) {
-          newUser = { ...item, matches: [...item.matches, auth.user] };
-        }
-      });
-    }
-
-    dispatch({ type: REQUEST_TYPES.ACCEPT_REQUEST, payload: newUser });
+    // if (users.every((item) => item._id !== user._id)) {
+    //   newUser = { ...user, matches: [...user.matches, auth.user] };
+    // } else {
+    //   users.forEach((item) => {
+    //     if (item._id === user._id) {
+    //       newUser = { ...item, matches: [...item.matches, auth.user] };
+    //     }
+    //   });
+    // }
 
     dispatch({
       type: GLOBALTYPES.AUTH,
       payload: {
         ...auth,
-        user: { ...auth.user, matches: [...auth.user.matches, newUser] },
+        user: { ...auth.user, matches: [...auth.user.matches, sender] },
       },
     });
 
     try {
       const res = await postDataAPI(
         `/acceptrequest`,
-        {id},
+        {sender, receiver},
         auth.token
       );
       // todo socket
-      socket.emit("makematch", newUser);
+      socket.emit("makematch", sender, receiver);
 
       // todo notification
       const msg = {
         id: auth.user._id,
         text: "is now a match with you",
-        recipients: [newUser._id],
+        recipients: [sender],
         url: `/profile/${auth.user._id}`,
       };
 
@@ -124,10 +121,11 @@ export const acceptMatchRequest =
   };
 
 export const rejectMatchRequest =
-  ({ id, auth, socket }) =>
+  ({ sender, receiver, auth, socket }) =>
   async (dispatch) => {
     try {
-      const res = await postDataAPI(`/rejectrequest`, { id }, auth.token);
+      const res = await postDataAPI(`/rejectrequest`, { sender, receiver }, auth.token);
+      socket.emit("rejectmatch", sender, receiver);
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,

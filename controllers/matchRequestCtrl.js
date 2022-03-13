@@ -1,5 +1,6 @@
 const Users = require("../models/userModel");
 const MatchRequest = require("../models/matchRequestsModel");
+const Conversations = require("../models/conversationModel");
 
 class APIfeatures {
   constructor(query, queryString) {
@@ -20,35 +21,38 @@ const MatchRequestCtrl = {
   createMatchRequest: async (req, res) => {
     try {
       const { sender, receiver } = req.body;
-      const existingMatchRequest = await MatchRequest.findOne({
-        sender,
-        receiver,
-      });
-      if (existingMatchRequest) {
-        return res.status(500).json({
-          msg: "You have already requested the match with this user.",
-        });
-      }
-      const receivedMatchRequest = await MatchRequest.findOne({
-        sender: receiver,
-        receiver: sender,
-      });
-      if (receivedMatchRequest) {
-        await Users.findOneAndUpdate(
-          { _id: sender },
-          { $push: { matches: receiver } },
-          { new: true }
-        );
-        await Users.findOneAndUpdate(
-          { _id: receiver },
-          { $push: { matches: sender } },
-          { new: true }
-        );
-        await MatchRequest.findByIdAndDelete(receivedMatchRequest._id);
-        return res.status(200).json({
-          msg: "whooray, you are a match.",
-        });
-      }
+      //   const existingMatchRequest = await MatchRequest.findOne({
+      //     sender,
+      //     receiver,
+      //   });
+      // console.log(existingMatchRequest);
+      //   if (existingMatchRequest) {
+      //     return res.status(500).json({
+      //       msg: "You have already requested the match with this user.",
+      //     });
+      //   }
+      // if (receiver === req.user._id) {
+      //   const receivedMatchRequest = await MatchRequest.findOne({
+      //     sender: receiver,
+      //     receiver: sender,
+      //   });
+      //   if (receivedMatchRequest) {
+      //     await Users.findOneAndUpdate(
+      //       { _id: sender },
+      //       { $push: { matches: receiver } },
+      //       { new: true }
+      //     );
+      //     await Users.findOneAndUpdate(
+      //       { _id: receiver },
+      //       { $push: { matches: sender } },
+      //       { new: true }
+      //     );
+      //     await MatchRequest.findByIdAndDelete(receivedMatchRequest._id);
+      //     return res.status(200).json({
+      //       msg: "whooray, you are a match.",
+      //     });
+      //   }
+      // }
       const newMatchRequest = await new MatchRequest({
         sender,
         receiver,
@@ -102,10 +106,11 @@ const MatchRequestCtrl = {
 
   getMatchRequestByUserIDs: async (req, res) => {
     const { sender, receiver } = req.query;
+    console.log(sender, receiver)
     try {
       const matchRequest = await MatchRequest.findOne({
-        sender: receiver,
-        receiver: sender,
+        sender,
+        receiver,
       });
       if (matchRequest) {
         return res.json({
@@ -142,30 +147,41 @@ const MatchRequestCtrl = {
   },
 
   AcceptMatchRequest: async (req, res) => {
-    console.log(req.user);
+    const { sender, receiver } = req.body;
+    console.log(sender, receiver);
     try {
-      const matchRequest = await MatchRequest.findOne({
-        _id: req.body.id,
+      // let matchRequest = await MatchRequest.findOne({
+      //   sender: sender,
+      //   receiver: receiver
+      // });
+      // if (!matchRequest) {
+      //    matchRequest = await MatchRequest.findOne({
+      //      sender: receiver,
+      //      receiver: sender,
+      //    });
+      // }
+        // if (matchRequest) {
+          await Users.findOneAndUpdate(
+            { _id: sender },
+            { $push: { matches: receiver } },
+            { new: true }
+          );
+          await Users.findOneAndUpdate(
+            { _id: receiver },
+            { $push: { matches: sender } },
+            { new: true }
+      );
+      const conversation = new Conversations({
+        recipients: [sender, receiver],
       });
-      if (matchRequest) {
-        await Users.findOneAndUpdate(
-          { _id: sender },
-          { $push: { matches: receiver } },
-          { new: true }
-        );
-        await Users.findOneAndUpdate(
-          { _id: receiver },
-          { $push: { matches: sender } },
-          { new: true }
-        );
-        await MatchRequest.findByIdAndDelete(matchRequest._id);
-        return res.status(200).json({
-          msg: "whooray, you are a match.",
-        });
-      }
-      return res
-        .status(500)
-        .json({ msg: "This connection Request does not exist anymore." });
+      await conversation.save();
+          return res.status(200).json({
+            msg: "whooray, you are a match.",
+          });
+        // }
+      // return res
+      //   .status(500)
+      //   .json({ msg: "This connection Request does not exist anymore." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
