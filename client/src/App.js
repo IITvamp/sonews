@@ -28,8 +28,8 @@ function App() {
   useEffect(() => {
     dispatch(refreshToken());
 
-    // const socket = io();
-    const socket = io.connect(window.location.hostname+':8080', {transports: ["websocket", "xhr-polling", "htmlfile", "jsonp-polling"]});
+    const socket = io();
+    // const socket = io.connect(window.location.hostname+':8080', {transports: ["websocket", "xhr-polling", "htmlfile", "jsonp-polling"]});
     dispatch({type: GLOBALTYPES.SOCKET, payload: socket })
     return () => socket.close()
   }, [dispatch]);
