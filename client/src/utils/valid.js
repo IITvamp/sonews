@@ -1,4 +1,4 @@
-const valid = ({ fullname, username, email, password, cf_password }) => {
+const valid = ({ fullname, username, email, password, cf_password, gender }) => {
     const err = {};
 
     if(!fullname){
@@ -16,6 +16,10 @@ const valid = ({ fullname, username, email, password, cf_password }) => {
     if (!email) {
       err.email = "Please add Email.";
     }
+  
+  if (!gender) {
+      err.username = "Please add your gender.";
+  }
 
     if (!password) {
       err.password = "Please add Password.";

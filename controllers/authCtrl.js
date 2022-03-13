@@ -6,7 +6,7 @@ const authCtrl = {
   register: async (req, res) => {
     try {
       const { fullname, username, email, password, gender } = req.body;
-
+      let modifiedGender = gender === "female" ? "GIRL" : gender === "male" ? "BOY" : "";
       let newUserName = username.toLowerCase().replace(/ /g, "");
 
       const user_name = await Users.findOne({ username: newUserName });
@@ -34,7 +34,7 @@ const authCtrl = {
         username: newUserName,
         email,
         password: passwordHash,
-        gender,
+        gender: modifiedGender,
       });
 
       const access_token = createAccessToken({ id: newUser._id });
@@ -94,6 +94,8 @@ const authCtrl = {
   registerAdmin: async (req, res) => {
     try {
       const { fullname, username, email, password, gender, role } = req.body;
+            let modifiedGender =
+              gender === "female" ? "GIRL" : gender === "male" ? "BOY" : "";
 
       let newUserName = username.toLowerCase().replace(/ /g, "");
 
@@ -122,7 +124,7 @@ const authCtrl = {
         username: newUserName,
         email,
         password: passwordHash,
-        gender,
+        gender:modifiedGender,
         role
       });
 

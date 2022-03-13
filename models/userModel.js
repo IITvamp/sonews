@@ -37,7 +37,8 @@ const userSchema = new Schema(
     },
     gender: {
       type: String,
-      default: "male",
+      default: "GIRL",
+      required:true,
     },
     interestedIn: {
       type: String,
