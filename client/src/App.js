@@ -8,7 +8,7 @@ import PrivateRouter from "./customRouter/PrivateRouter";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Home from "./pages/home";
-// import LoginHome from "./components/Homepage/Home";
+import HomePage from "./pages/homepage";
 import Alert from "./components/alert/Alert";
 import Header from "./components/header/Header";
 import StatusModal from "./components/StatusModal";
@@ -74,9 +74,9 @@ function App() {
               userType === "user"
                 ? auth.token
                   ? Home
-                  // : LoginHome
-                : Login
-               : auth.token
+                  : HomePage
+                : // : Login
+                auth.token
                 ? AdminDashboard
                 : Login
             }

@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 // import UserCard from "../UserCard";
 import AnanomUserCard from "./AnanomUserCard";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+// import { useParams } from "react-router-dom";
+// import { ToastContainer, toast } from "react-toastify";
 import MsgDisplay from "../message/MsgDisplay";
 import AnanomMsgDisplay from "./AnanomMsgDisplay";
 import Icons from "../Icons";
@@ -13,8 +13,6 @@ import { imageUpload } from "../../utils/imageUpload";
 import EndChatModel from "./EndChatModel";
 import {
   addMessage,
-  getMessages,
-  MESSAGE_TYPES,
 } from "../../redux/actions/saveConversation";
 
 // import {
@@ -32,7 +30,8 @@ const AnanomUserChat = (props) => {
   const id = props.id;
   const ownID = props.ownId;
   const [messages, setMessages] = useState([]);
-  const { auth, message, theme, socket } = useSelector((state) => state);
+      const [data, setData] = useState([]);
+  const { auth, theme, socket } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [incomingMessage, setIncomingMessage] = useState(null);
   const [text, setText] = useState("");
@@ -44,6 +43,12 @@ const AnanomUserChat = (props) => {
   const refDisplay = useRef();
   const pageEnd = useRef();
 
+  useEffect(() => {
+    if (refDisplay.current) {
+      refDisplay.current.scrollIntoView({ behaviour: "smooth", block: "end" });
+    }
+  }, []);
+  
   useEffect(() => {
     socket.on("getAnanomMessage", (data) => {
       console.log(data);
@@ -120,12 +125,12 @@ const AnanomUserChat = (props) => {
     socket.emit("sendAnanomMessage", message);
     setLoadMedia(false);
     await dispatch(addMessage({ message}));
-    if (refDisplay.current) {
-      refDisplay.current.scrollIntoView({
-        behaviour: "smooth",
-        block: "end",
-      });
-    }
+    // if (refDisplay.current) {
+    //   refDisplay.current.scrollIntoView({
+    //     behaviour: "smooth",
+    //     block: "end",
+    //   });
+    // }
   };
 
   useEffect(() => {
@@ -135,23 +140,22 @@ const AnanomUserChat = (props) => {
         block: "end",
       });
     }
-  }, [text]);
+  }, [text, messages]);
 
-  useEffect(() => {
-    if (incomingMessage) {
-      refDisplay.current.scrollIntoView({
-        behaviour: "smooth",
-        block: "end",
-      });
-    }
-  }, [incomingMessage]);
+  // useEffect(() => {
+  //   if (incomingMessage) {
+  //     refDisplay.current.scrollIntoView({
+  //       behaviour: "smooth",
+  //       block: "end",
+  //     });
+  //   }
+  // }, [incomingMessage]);
 
   console.log(googleId);
   return (
     <>
       {console.log("tp check if working")}
       <div className="message_header">
-        {/* {user.length !== 0 && ( */}
         <AnanomUserCard
           ananomId={googleId}
           find={props.find}
@@ -164,10 +168,11 @@ const AnanomUserChat = (props) => {
         >
           <i className="fas fa-trash text-danger" />
         </AnanomUserCard>
-        {/* )} */}
       </div>
 
-      <div className="chat_container" style={{ height: "calc(100% - 180px)" }}>
+      <div
+        className="chat_container"
+      >
         <div className="chat_display" ref={refDisplay}>
           <button style={{ marginTop: "-25px", opacity: 0 }} ref={pageEnd}>
             Load..

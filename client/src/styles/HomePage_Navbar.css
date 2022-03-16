@@ -1,0 +1,252 @@
+
+.homepage_navbar {
+    background: transparent;
+    height: 7.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    position: fixed;
+    width: 100vw;
+    top: 0;
+    z-index: 999;
+    transition: all 0.4s ease-in;
+  }
+
+  .homepage_navbar.homepage_active{
+    background: black;
+    box-shadow: 5px 0 10px  #474747;
+    transition: all 0.4s ease;
+  }
+
+  #navbar3{
+    background: black;
+  }
+  
+  .homepage_navbarcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 7.5rem;
+    max-width: 1500px;
+  }
+  
+  .navbar-logo {
+    color: #fff;
+    justify-self: start;
+    margin-left: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .fa-typo3 {
+    margin-left: 0.5rem;
+    font-size: 1.8rem;
+  }
+  
+  .homepage-nav-menu {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 10px;
+    list-style: none;
+    text-align: center;
+    width: 60vw;
+    justify-content: end;
+    margin-right: 2rem;
+    margin-left: 20rem;
+    top:0;
+  }
+
+  
+/* .button{
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+} */
+
+  .homepage-nav-item {
+    height: 60px;
+  }
+  
+  .homepage-nav-links {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0.5rem 0.5rem;
+    height: 100%;
+  }
+  
+  .homepage-nav-links:hover {
+    border-bottom: 4px solid #fff;
+    color: #461EB8;
+    transition: all 0.2s ease-out;
+  }
+  
+  .bars {
+    color: #fff;
+    height: 3rem;
+    width: 3rem;
+    margin-bottom:1rem;
+  }
+  
+  .homepage-nav-links-mobile {
+    display: none;
+  }
+  
+  .menu-icon {
+    display: none;
+  }
+
+  #about{
+    background:rgba(0, 0, 0, 0);
+    color: white;
+    line-height: 150%;
+    font-size: 1.8rem;
+  }
+  
+  /* span{
+    color: #461EB8;;
+  } */
+
+  .mobileHead{
+    display: none;
+  }
+
+  #navbar-signUp{
+    background:rgba(0, 0, 0, 0);
+    color: white;
+    line-height: 150%;
+    font-size: 1.8rem;
+}
+
+
+#navbar-signUp:hover{
+    color:#461EB8;
+    transition: 0.5s ;
+    
+}
+
+#navbar-logIn:hover{
+    background: linear-gradient(92.54deg, #3A41C6 -0.34%, #3D3BBB 24.22%, #4634A7 51.4%, #4C2C96 77.53%, #512888 100%);
+    color: white;
+    transition: 0.5s ;
+}
+
+#navbar-logIn{
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+    padding-left: 3.2rem;
+    padding-right: 3.2rem;
+    background: white;
+    border-radius: 4px;
+    color: black;
+    font-weight: bold;
+    font-size:1.8rem ;
+}
+
+
+  @media screen and (max-width: 960px) {
+    .NavbarItems {
+      position: relative;
+    }
+
+    .homepage-nav-menu {
+      margin-left: 0;
+    }
+  
+    .homepage-nav-menu {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: -100%;
+      opacity: 1;
+      transition: all 0.5s ease;
+    }
+
+    .mobileHead{
+      display: grid ;
+    }
+  
+    .nav-menu.active {
+      background: #242222;
+      left: 0;
+      opacity: 1;
+      transition: all 0.5s ease;
+      z-index: 1;
+    }
+  
+    .homepage-nav-links {
+      text-align: center;
+      padding: 2rem;
+      width: 100%;
+      display: table;
+    }
+  
+    .homepage-nav-links:hover {
+      background-color: #fff;
+      color: #242424;
+      border-radius: 0;
+    }
+  
+    /* .navbar-logo {
+      position: absolute;
+      top: 2.2rem;
+      left: 0;
+      transform: translate(25%, 50%);
+    } */
+  
+    .menu-icon {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(-100%, 60%);
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+  
+    .fa-bars,.fa-times {
+      color: #fff;
+      font-size: 2.2rem;
+      margin-top: 1rem;
+      margin-right: 1rem;
+    }
+  
+    .homepage-nav-links-mobile {
+      display: block;
+      text-align: center;
+      margin: 2rem auto;
+      border-radius: 4px;
+      width: 80%;
+      text-decoration: none;
+      font-size: 1.5rem;
+      background-color: transparent;
+      color: #fff;
+      padding: 14px 20px;
+      border: 1px solid #fff;
+      transition: all 0.3s ease-out;
+    }
+  
+    .homepage-nav-links-mobile:hover {
+      background: #fff;
+      color: #242424;
+      transition: 250ms;
+    }
+
+    #logo{
+      height: 2.2rem;
+      width: 7rem;
+    }
+  }
+  @media screen and (max-width: 423px) {
+    .homepage-navbar{
+      background: black;
+    }
+  }

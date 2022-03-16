@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/authAction";
 import { GLOBALTYPES } from "../../redux/actions/globalTypes";
+// import {ChatIcon} from "@material-ui/icons";
 import Avatar from "../Avatar";
 import NotifyModal from "../NotifyModal";
 
@@ -10,9 +11,7 @@ const Menu = () => {
   const [unreadNotifications, setUnreadNotifications] = useState([]);
   const navLinks = [
     { label: "Home", icon: "home", path: "/" },
-    { label: "Message", icon: "near_me", path: "/message" },
     { label: "AnanomMessage", icon: "near_me", path: "/ananommessage" },
-    { label: "SaveMesssage", icon: "near_me", path: "/savemessage" },
     { label: "Discover", icon: "explore", path: "/discover" },
   ];
 
@@ -80,6 +79,24 @@ const Menu = () => {
                 to={`/profile/${auth.user._id}`}
               >
                 Profile
+              </Link>
+            </li>
+            <li>
+              <Link
+                style={{ color: "white" }}
+                className="dropdown-item"
+                to={`/message`}
+              >
+                Chat
+              </Link>
+            </li>
+            <li>
+              <Link
+                style={{ color: "white" }}
+                className="dropdown-item"
+                to={`/savemessage`}
+              >
+                Saved Conversations
               </Link>
             </li>
             <li>
