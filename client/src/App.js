@@ -75,7 +75,8 @@ function App() {
                 ? auth.token
                   ? Home
                   : HomePage
-                : // : Login
+                // : Login
+                : // : HomePage
                 auth.token
                 ? AdminDashboard
                 : Login
@@ -84,8 +85,8 @@ function App() {
 
           {userType === "user" && (
             <>
-              <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
 
               <div className="wrap_page">
                 <PrivateRouter exact path="/:page" component={PageRender} />

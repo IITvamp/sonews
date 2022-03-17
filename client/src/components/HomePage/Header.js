@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {Link} from "react-router-dom";
 // import { Button } from './Button';
 
 function Header() {
@@ -30,9 +31,9 @@ function Header() {
         </p>
         <div>
           <div>
-            <button id="getStarted" onClick={signUpClick}>
-              SignUp
-            </button>
+            <Link to="/register" style={{ color: "crimson" }}>
+              <button id="getStarted">SignUp</button>
+            </Link>
           </div>
         </div>
       </div>

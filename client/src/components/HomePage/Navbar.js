@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import { Button } from "@material-ui/core";
 import Bars from "./Assets/bars.svg";
 import Logo from "./Assets/Logo1.png";
@@ -62,22 +64,38 @@ function Navbar(props) {
             </div>
 
             <li id="about" className="homepage-nav-item">
-              <a href="/about" className="homepage-nav-links" onClick={closeMobileMenu}>
+              <a
+                href="/about"
+                className="homepage-nav-links"
+                onClick={closeMobileMenu}
+              >
                 About
               </a>
             </li>
             <li className="homepage-nav-item">
               <div className="homepage-nav-links" onClick={closeMobileMenu}>
-                <Button id="navbar-signup" onClick={() => console.log()}>
-                  <a href="/register" className="homepage-nav-links">SignUp</a>
-                </Button>
+                  <Link
+                    to="/register"
+                    style={{ color: "crimson" }}
+                    className="homepage-nav-links"
+                  >
+                    SignUp
+                  </Link>
+
+                  {/* <a href="/register" className="homepage-nav-links">
+                    SignUp
+                  </a> */}
               </div>
             </li>
             <li className="homepage-nav-item">
               <div className="homepage-nav-links" onClick={closeMobileMenu}>
-                <Button className="button" id="navbar-login">
-                  <a href="/login" className="homepage-nav-links">LogIn</a>
-                </Button>
+                  <Link
+                    to="/login"
+                    style={{ color: "crimson" }}
+                    className="homepage-nav-links"
+                  >
+                    SignIn
+                  </Link>
               </div>
             </li>
           </ul>
