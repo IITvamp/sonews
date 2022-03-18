@@ -100,7 +100,7 @@ const AnanomUserCard = (props) => {
         console.log(error);
       }
     };
-    // isRequested();
+    isRequested();
   }, []);
 
 
