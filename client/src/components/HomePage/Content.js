@@ -1,9 +1,10 @@
 import React from "react";
-import FirstVideo from "./Assets/firstvideo.mp4"
-import First from "./Assets/first.gif";
-import Second from "./Assets/second.png";
-import Third from "./Assets/third.png";
-
+import First from "./Assets/firstvideo.mp4"
+import Second from "./Assets/second.mp4";
+import Third from "./Assets/third.mp4";
+import Fourth from "./Assets/fourth.mp4"
+import Fifth from "./Assets/fifth.mp4"
+import Sixth from "./Assets/Sixth.mp4"
 function Content() {
   return (
     <div>
@@ -17,8 +18,14 @@ function Content() {
             Easy as that. Fast as that. Simple as that
           </div>
           <div className="firstImage">
-            <video loop autoPlay muted controls className="homepage-content-img">
-              <source src={FirstVideo} type="video/mp4" />
+            <video
+              loop
+              autoPlay
+              muted
+              controls
+              className="homepage-content-img"
+            >
+              <source src={First} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             {/* <img alt="vector1" src={First} className="homepage-content-img" /> */}
@@ -35,7 +42,17 @@ function Content() {
             the request.
           </div>
           <div className="secondImage">
-            <img alt="vector2" src={Second} className="homepage-content-img" />
+            <video
+              loop
+              autoPlay
+              muted
+              controls
+              className="homepage-content-img"
+            >
+              <source src={Second} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            {/* <img alt="vector2" src={Second} className="homepage-content-img" /> */}
           </div>
         </div>
 
@@ -49,23 +66,65 @@ function Content() {
             start with no strings attached to previous chat. Fun isn't it?🙂
           </div>
           <div className="thirdImage">
-            <img alt="vector3" src={Third} className="homepage-content-img" />
+            <video
+              loop
+              autoPlay
+              muted
+              controls
+              className="homepage-content-img"
+            >
+              <source src={Third} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            {/* <img alt="vector3" src={Third} className="homepage-content-img" /> */}
           </div>
         </div>
 
         <div className="fourth">
           <div className="homepage-content">
-            <p className="homepage-content-h3">know your dates more and more</p>
-            see photos and videos of your connetion directly in your feed.
+            <p className="homepage-content-h3">be better at dating</p>
+            go to saved conversations and look waht went right what went wrong.
             <br />
-            Is there a better way to know the person more and more?
+            Learn from your own mistakes and be better than everyone else.
           </div>
-          <div className="thirdImage">
-            <img alt="vector3" src={Third} className="homepage-content-img" />
+          <div className="fourthImage">
+            <video
+              loop
+              autoPlay
+              muted
+              controls
+              className="homepage-content-img"
+            >
+              <source src={Fourth} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            {/* <img alt="vector3" src={Fourth} className="homepage-content-img" /> */}
           </div>
         </div>
 
         <div className="fifth">
+          <div className="homepage-content">
+            <p className="homepage-content-h3">know your dates more and more</p>
+            see photos and videos of your connection directly in your feed.
+            <br />
+            Is there a better way to know the person more and more?
+          </div>
+          <div className="fifthImage">
+            <video
+              loop
+              autoPlay
+              muted
+              controls
+              className="homepage-content-img"
+            >
+              <source src={Fifth} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            {/* <img alt="vector3" src={Third} className="homepage-content-img" /> */}
+          </div>
+        </div>
+
+        <div className="sixth">
           <div className="homepage-content">
             <p className="homepage-content-h3">know the person for you</p>
             Tired of looking at few photos of a person and deciding if thats the
@@ -74,8 +133,18 @@ function Content() {
             Now, look at the posts you and your partner have liked in common to
             know what to talk about during conversation.
           </div>
-          <div className="thirdImage">
-            <img alt="vector3" src={Third} className="homepage-content-img" />
+          <div className="sixthImage">
+            <video
+              loop
+              autoPlay
+              muted
+              controls
+              className="homepage-content-img"
+            >
+              <source src={Sixth} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            {/* <img alt="vector3" src={Third} className="homepage-content-img" /> */}
           </div>
         </div>
       </div>
