@@ -1,5 +1,6 @@
 import React from "react";
-import First from "./Assets/first.png";
+import FirstVideo from "./Assets/firstvideo.mp4"
+import First from "./Assets/first.gif";
 import Second from "./Assets/second.png";
 import Third from "./Assets/third.png";
 
@@ -16,7 +17,11 @@ function Content() {
             Easy as that. Fast as that. Simple as that
           </div>
           <div className="firstImage">
-            <img alt="vector1" src={First} className="homepage-content-img" />
+            <video loop autoPlay muted controls className="homepage-content-img">
+              <source src={FirstVideo} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            {/* <img alt="vector1" src={First} className="homepage-content-img" /> */}
           </div>
         </div>
 
@@ -37,7 +42,8 @@ function Content() {
         <div className="third">
           <div className="homepage-content">
             <p className="homepage-content-h3">No Strings Attached</p>
-             Chat didn't go as expected? Don't worry🙂. Just say "shit" and end the chat.
+            Chat didn't go as expected? Don't worry🙂. Just say "shit" and end
+            the chat.
             <br />
             if next time you get connected to same person it will be a fresh
             start with no strings attached to previous chat. Fun isn't it?🙂
@@ -62,15 +68,16 @@ function Content() {
         <div className="fifth">
           <div className="homepage-content">
             <p className="homepage-content-h3">know the person for you</p>
-            Tired of looking at few photos of a person and deciding if thats the person you are looking for you?
+            Tired of looking at few photos of a person and deciding if thats the
+            person you are looking for you?
             <br />
-            Now, look at the posts you and your partner have liked in common to know what to talk about during conversation.
+            Now, look at the posts you and your partner have liked in common to
+            know what to talk about during conversation.
           </div>
           <div className="thirdImage">
             <img alt="vector3" src={Third} className="homepage-content-img" />
           </div>
         </div>
-
       </div>
     </div>
   );

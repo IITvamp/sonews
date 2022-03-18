@@ -1,6 +1,7 @@
 
 .first,.third,.fifth{
     margin-top: 10rem;
+    /* padding-left: 5rem; */
     display: flex;
     justify-content: space-between;
     flex-direction: row-reverse;
@@ -29,6 +30,7 @@
 
 .homepage-content{
     flex: 0.5;
+    padding-left: 5rem;
     font-family: Open Sans;
     font-style: normal;
     font-weight: 300;
@@ -47,7 +49,7 @@
     }
 
 .homepage-content-img{
-    width: 30rem;
+    width: fit-content;
     height: 25rem; 
 }
 
