@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import io from 'socket.io-client'
@@ -75,8 +75,8 @@ function App() {
                 ? auth.token
                   ? Home
                   : HomePage
-                // : Login
-                : // : HomePage
+                : // : Login
+                // : HomePage
                 auth.token
                 ? AdminDashboard
                 : Login
@@ -85,7 +85,7 @@ function App() {
 
           {userType === "user" && (
             <>
-              <Route exact path="/login" component={Login} />
+              <Route exact path="/login" component={withRouter(Login)} />
               <Route exact path="/register" component={Register} />
 
               <div className="wrap_page">

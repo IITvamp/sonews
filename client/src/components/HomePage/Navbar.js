@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { Button } from "@material-ui/core";
 import Bars from "./Assets/bars.svg";
-import Logo from "./Assets/Logo1.png";
+import Logo from "./Assets/Logo.png";
+import Logo1 from "../Assets/Logo1.png";
 
-function Navbar(props) {
-  const [click, setClick] = useState(false);
+function NavbarNew(props) {
+  const [click, setClick] = React.useState(false);
+
+  const handleClick = () => setClick(!click);
+  const Close = () => setClick(false);
+  // const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [navbar, setNavbar] = useState(false);
 
-  const handleClick = () => setClick(!click);
+  // const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
   const showButton = () => {
@@ -38,71 +43,68 @@ function Navbar(props) {
   window.addEventListener("scroll", changeBackground);
 
   return (
-    <>
-      <nav
-        className={
-          navbar ? "homepage_navbar homepage_active" : "homepage_navbar"
-        }
-      >
-        <div className="homepage_navbar_container">
-          <a href="/" className="navbar-logo" onClick={closeMobileMenu}>
-            <img alt="brand-logo" id="logo" src={Logo} />
-          </a>
-          <div className="menu-icon" onClick={handleClick}>
-            <img alt="bars" className="bars" src={Bars} />
-          </div>
+    <div>
+      <div className={click ? "main-container" : ""} onClick={() => Close()} />
+      <nav className="homepage-navbar" onClick={(e) => e.stopPropagation()}>
+        <div className="homepage-nav-container">
+          <NavLink exact to="/" className="homepage-nav-logo">
+            <img src={Logo1} alt={"brand logo"}/>
+          </NavLink>
           <ul
             className={click ? "homepage-nav-menu active" : "homepage-nav-menu"}
           >
-            <div className="mobileHead homepage-nav-item">
-              <a href="/" className="navbar-logo" onClick={closeMobileMenu}>
-                <img alt="logo" id="logo" src={Logo} />
-              </a>
-            </div>
-            <div className="menu-icon" onClick={closeMobileMenu}>
-              <i className="fas fa-times" />
-            </div>
-
-            <li id="about" className="homepage-nav-item">
-              <a
-                href="/about"
+            <li className="homepage-nav-item">
+              <NavLink
+                exact
+                to="/"
+                activeClassName="active"
                 className="homepage-nav-links"
-                onClick={closeMobileMenu}
+                onClick={click ? handleClick : null}
+              >
+                Home
+              </NavLink>
+            </li>
+            <li className="homepage-nav-item">
+              <NavLink
+                exact
+                to="/about"
+                activeClassName="active"
+                className="homepage-nav-links"
+                onClick={click ? handleClick : null}
               >
                 About
-              </a>
+              </NavLink>
             </li>
             <li className="homepage-nav-item">
-              <div className="homepage-nav-links" onClick={closeMobileMenu}>
-                  <Link
-                    to="/register"
-                    style={{ color: "crimson" }}
-                    className="homepage-nav-links"
-                  >
-                    SignUp
-                  </Link>
-
-                  {/* <a href="/register" className="homepage-nav-links">
-                    SignUp
-                  </a> */}
-              </div>
+              <NavLink
+                exact
+                to="/login"
+                activeClassName="active"
+                className="homepage-nav-links"
+                onClick={click ? handleClick : null}
+              >
+                SignIn
+              </NavLink>
             </li>
             <li className="homepage-nav-item">
-              <div className="homepage-nav-links" onClick={closeMobileMenu}>
-                  <Link
-                    to="/login"
-                    style={{ color: "crimson" }}
-                    className="homepage-nav-links"
-                  >
-                    SignIn
-                  </Link>
-              </div>
+              <NavLink
+                exact
+                to="/register"
+                activeClassName="active"
+                className="homepage-nav-links"
+                onClick={click ? handleClick : null}
+              >
+                SignUp
+              </NavLink>
             </li>
           </ul>
+          <div className="homepage-nav-icon" onClick={handleClick}>
+            <i className={click ? "fa fa-times" : "fa fa-bars"}></i>
+          </div>
         </div>
       </nav>
-    </>
+    </div>
   );
 }
 
-export default Navbar;
+export default NavbarNew;

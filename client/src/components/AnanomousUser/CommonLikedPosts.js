@@ -39,7 +39,7 @@ const CommonLikedPosts = (props) => {
   return (
     <div className="follow">
       <div className="follow_box">
-        <h5 className="text-center follow_box-heading">Followers</h5>
+        <h5 className="text-center follow_box-heading">Common Likes</h5>
         <hr />
         <div className="posts">
           //{" "}

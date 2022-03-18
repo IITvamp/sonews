@@ -11,7 +11,7 @@ const Menu = () => {
   const [unreadNotifications, setUnreadNotifications] = useState([]);
   const navLinks = [
     { label: "Home", icon: "home", path: "/" },
-    { label: "AnanomMessage", icon: "near_me", path: "/ananommessage" },
+    { label: "AnanomMessage", icon: "chat", path: "/ananommessage" },
     { label: "Discover", icon: "explore", path: "/discover" },
   ];
 
