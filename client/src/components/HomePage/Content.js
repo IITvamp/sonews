@@ -12,10 +12,10 @@ function Content() {
         <div className="first">
           <div className="homepage-content">
             <p className="homepage-content-h3">Dating like never before:</p>
-            All you gotta do is to click on start button and then just bilnk
+            All you gotta do is to click on start button and then just blink
             your eye before you get connected to a wonderful date.
             <br />
-            Easy as that. Fast as that. Simple as that
+            Easy as that. Fast as that. Simple as that🙂🍕
           </div>
           <div className="firstImage">
             <video
@@ -83,7 +83,7 @@ function Content() {
         <div className="fourth">
           <div className="homepage-content">
             <p className="homepage-content-h3">be better at dating</p>
-            go to saved conversations and look waht went right what went wrong.
+            go to saved conversations and look what went right what went wrong.
             <br />
             Learn from your own mistakes and be better than everyone else.
           </div>
@@ -127,8 +127,7 @@ function Content() {
         <div className="sixth">
           <div className="homepage-content">
             <p className="homepage-content-h3">know the person for you</p>
-            Tired of looking at few photos of a person and deciding if thats the
-            person you are looking for you?
+            Tired of looking at few photos of a person and deciding what to talk about?
             <br />
             Now, look at the posts you and your partner have liked in common to
             know what to talk about during conversation.

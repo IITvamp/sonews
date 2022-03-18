@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { GLOBALTYPES } from "../../redux/actions/globalTypes";
+
 // import { ToastContainer, toast } from "react-toastify";
 
 import Avatar from "../Avatar";
@@ -43,6 +45,13 @@ const AnanomUserCard = (props) => {
   socket.on("makeMatchToClient", async (data) => {
     console.log(data);
     setMatch(true);
+    dispatch({
+      type: GLOBALTYPES.AUTH,
+      payload: {
+        ...auth,
+        user: { ...auth.user, matches: [...auth.user.matches, ananomId] },
+      },
+    });
     setAccepted(true);
     setFetchProfile(true);
   });
