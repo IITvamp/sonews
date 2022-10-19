@@ -30,19 +30,19 @@ export const imageUpload = async (images) => {
             formData.append("file", item);  
         }
 
-        
+      console.log(formData, "formdata");
         formData.append("upload_preset", "ayushbansalaccount");
         formData.append("cloud_name", "datinginsta110");
 
         const res = await fetch(
-          "https://api.cloudinary.com/v1_1/datinginsta110/image/upload",
+          "https://api.cloudinary.com/v1_1/datinginsta110/auto/upload",
           {
             method: "POST",
             body: formData,
           }
         );
-
-        const data = await res.json();
+      const data = await res.json();
+      console.log(data, "formdata");
         imgArr.push({ public_id: data.public_id, url: data.secure_url });
         
       

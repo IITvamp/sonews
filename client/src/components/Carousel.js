@@ -6,7 +6,7 @@ const Carousel = ({ images, id }) => {
     const isActive = index => {
         if(index === 0) return "active";
     }
-  return (
+  return(
     <div id={`image${id}`} className="carousel slide" data-bs-ride="carousel">
       <div className="carousel-indicators">
         {images.map((img, index) => (

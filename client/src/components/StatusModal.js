@@ -8,7 +8,7 @@ import { imageShow, videoShow } from "../utils/mediaShow";
 const StatusModal = () => {
   const { auth, theme, status, socket } = useSelector((state) => state);
   const dispatch = useDispatch();
-
+  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [images, setImages] = useState([]);
   const [stream, setStream] = useState(false);
@@ -85,12 +85,13 @@ const StatusModal = () => {
       });
     }
 
+    // todo
     if (status.onEdit) {
-      dispatch(updatePost({ content, images, auth, status }));
+      dispatch(updatePost({ title, content, images, auth, status }));
     } else {
-      dispatch(createPost({ content, images, auth, socket }));
+      dispatch(createPost({ title, content, images, auth, socket }));
     }
-
+    setTitle("");
     setContent("");
     setImages([]);
     if (tracks) {
@@ -104,6 +105,7 @@ const StatusModal = () => {
 
   useEffect(() => {
     if (status.onEdit) {
+      setTitle(status.title);
       setContent(status.content);
       setImages(status.images);
     }
@@ -125,6 +127,17 @@ const StatusModal = () => {
           </span>
         </div>
         <div className="status_body">
+          <textarea
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
+            name="title"
+            placeholder={`title`}
+            style={{
+              filter: theme ? "invert(1)" : "invert(0)",
+              color: theme ? "white" : "#111",
+              background: theme ? "rgb(0,0,0,0.3)" : "",
+            }}
+          />
           <textarea
             onChange={(e) => setContent(e.target.value)}
             value={content}

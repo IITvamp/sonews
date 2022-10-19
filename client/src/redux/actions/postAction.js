@@ -20,7 +20,7 @@ export const POST_TYPES = {
 };
 
 export const createPost =
-  ({ content, images, auth, socket }) =>
+  ({title, content, images, auth, socket }) =>
   async (dispatch) => {
     let media = [];
 
@@ -33,7 +33,7 @@ export const createPost =
 
       const res = await postDataAPI(
         "posts",
-        { content, images: media },
+        { title, content, images: media },
         auth.token
       );
 
@@ -86,12 +86,13 @@ export const getPosts = (token) => async (dispatch) => {
 };
 
 export const updatePost =
-  ({ content, images, auth, status }) =>
+  ({ title, content, images, auth, status }) =>
   async (dispatch) => {
     let media = [];
     const imgNewUrl = images.filter((img) => !img.url);
     const imgOldUrl = images.filter((img) => img.url);
     if (
+      status.title === title && 
       status.content === content &&
       imgNewUrl.length === 0 &&
       imgOldUrl.length === status.images.length
@@ -105,7 +106,7 @@ export const updatePost =
       }
       const res = await patchDataAPI(
         `post/${status._id}`,
-        { content, images: [...imgOldUrl, ...media] },
+        { title, content, images: [...imgOldUrl, ...media] },
         auth.token
       );
 
