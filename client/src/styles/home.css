@@ -23,7 +23,7 @@
 
 /* #region Posts */
 .posts .card{
-    /* box-shadow: 0 0 5px #ddd; */
+    box-shadow: 0 0 5px #ddd;
 }
 
 /* #endregion */

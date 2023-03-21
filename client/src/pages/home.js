@@ -11,18 +11,21 @@ import LoadIcon from '../images/loading.gif'
 const Home = () => {
   const { homePosts } = useSelector(state => state);
     return (
-      <div className="home row mx-0">
-        <div className="col-md-8">
+      <div className="home row mx-auto w-50 h-50">
+        <div className="col-md-12 ">
           <Status />
           {homePosts.loading ? (
             <img src={LoadIcon} alt="loading" className="d-block mx-auto" />
-          ) : (homePosts.result === 0 ? <h2 className="text-center">No Post</h2> :<Posts />
+          ) : homePosts.result === 0 ? (
+            <h2 className="text-center">No Post</h2>
+          ) : (
+            <Posts />
           )}
         </div>
 
-        <div className="col-md-4">
+        {/* <div className="col-md-4">
           <RightSideBar />
-        </div>
+        </div> */}
       </div>
     );
 }
